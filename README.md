@@ -1,6 +1,8 @@
 # Resh-monitoramento-de-estoque
 Demanda: Sala de Informática do CTEC
+
 **Motivação principal:** melhorar as condições do levantamento patrimonial para ítens de informática dos 4 Laboratórios de Informática do Ctec
+
 **Funções:**
 - Leituras de código de barras pelo smartphone dos identificadores dos ítens cadastrados
 - Relatórios dos ítens por localização (sala/setor) e estado de conservação.
