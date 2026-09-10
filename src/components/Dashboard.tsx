@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Item } from "../types";
+import MostrarItem from "./MostrarItem";
 
 interface DashboardProps {
   itens: Item[];
@@ -7,6 +8,7 @@ interface DashboardProps {
 
 export default function Dashboard({ itens }: DashboardProps) {
   const [termoBusca, setTermoBusca] = useState("");
+  const [itemSelecionado, setItemSelecionado] = useState<Item | null>(null);
 
   const itensFiltrados = itens.filter(
     (item) =>
@@ -31,6 +33,15 @@ export default function Dashboard({ itens }: DashboardProps) {
     textAlign: "center" as const,
   };
   const thTdStyle = { padding: "12px", border: "1px solid #ddd" };
+  // Se houver um item selecionado, mostra apenas a tela de detalhes dele!
+  if (itemSelecionado) {
+    return (
+      <MostrarItem
+        item={itemSelecionado}
+        aoVoltar={() => setItemSelecionado(null)}
+      />
+    );
+  }
 
   return (
     <div>
@@ -92,8 +103,8 @@ export default function Dashboard({ itens }: DashboardProps) {
           <tr style={{ backgroundColor: "#f4f4f4", textAlign: "left" }}>
             <th style={thTdStyle}>ID / Patrimônio</th>
             <th style={thTdStyle}>Nome</th>
-            <th style={thTdStyle}>Descrição</th>
             <th style={thTdStyle}>Estado</th>
+            <th style={thTdStyle}>Ver mais</th>
           </tr>
         </thead>
         <tbody>
@@ -103,8 +114,22 @@ export default function Dashboard({ itens }: DashboardProps) {
                 <strong>{item.idUnico}</strong>
               </td>
               <td style={thTdStyle}>{item.nome}</td>
-              <td style={thTdStyle}>{item.descricao}</td>
               <td style={thTdStyle}>{item.estadoConservacao}</td>
+              <td style={thTdStyle}>
+                <button
+                  onClick={() => setItemSelecionado(item)}
+                  style={{
+                    padding: "6px 12px",
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Ver Detalhes
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
